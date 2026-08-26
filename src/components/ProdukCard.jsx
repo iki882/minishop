@@ -1,6 +1,7 @@
 // src/components/ProdukCard.jsx
 
 import { useKeranjang } from "../context/KeranjangContext";
+import { useNavigate } from "react-router-dom";
 
 function ProdukCard({ produk }) {
   // Melindungi aplikasi dari error jika data produk belum dimuat
