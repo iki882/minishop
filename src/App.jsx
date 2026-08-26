@@ -1,7 +1,7 @@
 // App.jsx
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
+import Layout from "./components/Layout";
 import { KeranjangProvider } from "./context/KeranjangContext";
 
 // Menggunakan lazy loading untuk komponen halaman
@@ -13,19 +13,28 @@ function App() {
   return (
     <KeranjangProvider>
       <BrowserRouter>
-        <div>
-          <Header />
-          <main>
-            {/* Suspense membungkus Routes untuk menangani proses loading */}
-            <Suspense fallback={<p className="text-center p-5">Memuat...</p>}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/produk/:id" element={<DetailProduk />} />
-                <Route path="/keranjang" element={<Keranjang />} />
-              </Routes>
-            </Suspense>
-          </main>
-        </div>
+        <Suspense fallback={<p className="text-center p-5">Memuat...</p>}>
+          <Routes>
+
+            {/* Layout menjadi pembungkus semua halaman */}
+            <Route element={<Layout />}>
+
+              <Route path="/" element={<Home />} />
+
+              <Route
+                path="/produk/:id"
+                element={<DetailProduk />}
+              />
+
+              <Route
+                path="/keranjang"
+                element={<Keranjang />}
+              />
+
+            </Route>
+
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </KeranjangProvider>
   );
