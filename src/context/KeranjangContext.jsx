@@ -1,24 +1,26 @@
-//context/keranjangcontext.jsx
-
 import { createContext, useContext, useState } from "react";
 
 const KeranjangContext = createContext();
 
 export function KeranjangProvider({ children }) {
-    const [item,setItem] =useState([]);
+  const [item, setItem] = useState([]);
 
-    function tambahKeranjang(Produk) {
-        setItem((prev) => [...prev, Produk]);
-    }
+  function tambahKeranjang(produk) {
+    setItem((prev) => [...prev, produk]);
+  }
 
-    return (
-        <KeranjangContext.Provider value={{ item, tambahKeranjang }}>
-            {children}
-        </KeranjangContext.Provider>
-    );
+  return (
+    <KeranjangContext.Provider
+      value={{
+        item,
+        tambahKeranjang,
+      }}
+    >
+      {children}
+    </KeranjangContext.Provider>
+  );
 }
 
-export function useKeranjang(){
-    return useContext(KeranjangContext);
+export function useKeranjang() {
+  return useContext(KeranjangContext);
 }
-
