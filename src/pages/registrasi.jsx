@@ -1,7 +1,6 @@
 // src/pages/Register.jsx
 
 import { useState } from "react";
-import { uselogin } from "../pages/login";
 
 function Register() {
   const [formData, setFormData] = useState({

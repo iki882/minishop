@@ -3,8 +3,6 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import { KeranjangProvider } from "./context/KeranjangContext";
-import login from "./pages/loginogin";
-import register from "./pages/registrasi";
 
 // Menggunakan lazy loading untuk komponen halaman
 const Home = lazy(() => import("./pages/Home"));
