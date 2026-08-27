@@ -1,26 +1,47 @@
-//components/Header.jsx
-import Footer from "./Footer.jsx";
+import { Link } from "react-router-dom";
 
-function Header(){
-    return (
+function Header() {
+  return (
+    <header className="flex justify-between items-center px-8 py-4 shadow-md bg-orange-400">
+      
+      {/* Logo */}
+      <Link to="/" className="text-2xl font-bold text-white">
+        MiniShop
+      </Link>
 
-        <header className="flex justify-between items-center px-8 py-4 shadow-md bg-orange-400">
-            <h1 className="text-2xl font-bold text-white">
-            MiniShop</h1>
+      {/* Menu */}
+      <nav className="flex items-center gap-3">
+        <Link
+          to="/"
+          className="bg-blue-500 text-white px-6 py-2 rounded-b-full hover:bg-blue-700 transition duration-300"
+        >
+          Beranda
+        </Link>
 
-            <h1 className="text-2xl font-semibold text-white right-0">
-            Produk</h1>
-            <nav>
-                <div className="text-right mix-blend-color:green-text">
-                <a href="#" className="bg-blue-500 text-white px-8 py-2 rounded-b-full hover:bg-blue-700 transition duration-300">Beranda</a>
-                <a href="#" className="bg-green-500 text-white px-8 py-2 rounded-b-full hover:bg-green-700 transition duration-300 row-auto">Keranjang</a>
-              
-                </div>
+        <Link
+          to="/produk"
+          className="bg-purple-500 text-white px-6 py-2 rounded-b-full hover:bg-purple-700 transition duration-300"
+        >
+          Produk
+        </Link>
 
-                
-            </nav>
-        </header>
-    )
+        <Link
+          to="/login"
+          className="bg-green-500 text-white px-6 py-2 rounded-b-full hover:bg-green-700 transition duration-300"
+        >
+          Login
+        </Link>
+
+        <Link
+          to="/register"
+          className="bg-red-500 text-white px-6 py-2 rounded-b-full hover:bg-red-700 transition duration-300"
+        >
+          Registrasi
+        </Link>
+      </nav>
+
+    </header>
+  );
 }
 
 export default Header;

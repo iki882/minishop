@@ -8,8 +8,8 @@ import { KeranjangProvider } from "./context/KeranjangContext";
 const Home = lazy(() => import("./pages/Home"));
 const DetailProduk = lazy(() => import("./pages/DetailProduk"));
 const Keranjang = lazy(() => import("./pages/Keranjang"));
-const Login = lazy(() => import("./pages/login"));
-const Register = lazy(() => import("./pages/register"));
+const login = lazy(() => import("./pages/login"));
+const register = lazy(() => import("./pages/registrasi"));
 
 function App() {
   return (
@@ -32,10 +32,10 @@ function App() {
                 path="/keranjang"
                 element={<Keranjang />}
               />
-              <Route path="/login" element={<Login />}
+              <Route path="/login" element={<login />}
               />
 
-              <Route path="/register" element={<Register />} 
+              <Route path="/register" element={<register />} 
               />
 
             </Route>
