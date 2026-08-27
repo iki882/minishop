@@ -1,6 +1,5 @@
-// src/pages/Register.jsx
-
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -22,11 +21,16 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     setError("");
     setBerhasil(false);
 
-    // Validasi sederhana
-    if (!formData.nama || !formData.email || !formData.password) {
+    if (
+      !formData.nama ||
+      !formData.email ||
+      !formData.password ||
+      !formData.konfirmasiPassword
+    ) {
       setError("Semua bidang harus diisi!");
       return;
     }
@@ -41,11 +45,10 @@ function Register() {
       return;
     }
 
-    // Jika validasi lolos
     console.log("Data pendaftaran:", formData);
+
     setBerhasil(true);
-    
-    // Reset form
+
     setFormData({
       nama: "",
       email: "",
@@ -55,87 +58,111 @@ function Register() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-        Daftar Akun Baru
-      </h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-10">
+      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
 
-      {error && (
-        <div className="mb-4 p-3 bg-red-100 text-red-700 text-sm rounded">
-          {error}
-        </div>
-      )}
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
+          Registrasi
+        </h1>
 
-      {berhasil && (
-        <div className="mb-4 p-3 bg-green-100 text-green-700 text-sm rounded">
-          Registrasi berhasil! Silakan login.
-        </div>
-      )}
+        <p className="text-center text-gray-500 mb-6">
+          Buat akun MiniShop baru
+        </p>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Nama Lengkap
-          </label>
-          <input
-            type="text"
-            name="nama"
-            value={formData.nama}
-            onChange={handleChange}
-            placeholder="Masukkan nama lengkap"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 text-red-600 rounded">
+            {error}
+          </div>
+        )}
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="nama@email.com"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+        {berhasil && (
+          <div className="mb-4 p-3 bg-green-100 text-green-600 rounded">
+            Registrasi berhasil! Silakan login.
+          </div>
+        )}
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Password
-          </label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Minimal 6 karakter"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Konfirmasi Password
-          </label>
-          <input
-            type="password"
-            name="konfirmasiPassword"
-            value={formData.konfirmasiPassword}
-            onChange={handleChange}
-            placeholder="Ulangi password"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Nama Lengkap
+            </label>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 font-semibold"
-        >
-          Daftar
-        </button>
-      </form>
+            <input
+              type="text"
+              name="nama"
+              value={formData.nama}
+              onChange={handleChange}
+              placeholder="Masukkan nama lengkap"
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Email
+            </label>
+
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="nama@email.com"
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Password
+            </label>
+
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Minimal 6 karakter"
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Konfirmasi Password
+            </label>
+
+            <input
+              type="password"
+              name="konfirmasiPassword"
+              value={formData.konfirmasiPassword}
+              onChange={handleChange}
+              placeholder="Ulangi password"
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition"
+          >
+            Registrasi
+          </button>
+
+        </form>
+
+        <p className="text-center text-gray-600 mt-6">
+          Sudah punya akun?{" "}
+          <Link
+            to="/login"
+            className="text-blue-500 font-semibold hover:underline"
+          >
+            Login
+          </Link>
+        </p>
+
+      </div>
     </div>
   );
 }
