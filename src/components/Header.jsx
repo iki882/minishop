@@ -14,7 +14,10 @@ function Header(){
                 <div className="text-right mix-blend-color:green-text">
                 <a href="#" className="bg-blue-500 text-white px-8 py-2 rounded-b-full hover:bg-blue-700 transition duration-300">Beranda</a>
                 <a href="#" className="bg-green-500 text-white px-8 py-2 rounded-b-full hover:bg-green-700 transition duration-300 row-auto">Keranjang</a>
+              
                 </div>
+
+                
             </nav>
         </header>
     )
