@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <header className="flex justify-between items-center px-8 py-4 shadow-md bg-orange-400">
-      
+
       {/* Logo */}
       <Link
         to="/"
@@ -25,7 +25,7 @@ function Header() {
 
         {/* Produk */}
         <Link
-          to="/produk/1"
+          to="/"
           className="bg-purple-500 text-white px-6 py-2 rounded-b-full hover:bg-purple-700 transition duration-300"
         >
           Produk

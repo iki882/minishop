@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -11,6 +15,8 @@ function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    setError("");
 
     if (!form.email.includes("@")) {
       setError("Email tidak valid");
@@ -22,9 +28,15 @@ function Login() {
       return;
     }
 
-    setError("");
+    const hasil = login(form.email, form.password);
 
-    console.log("Data Login:", form);
+    if (!hasil.berhasil) {
+      setError(hasil.pesan);
+      return;
+    }
+
+    // Login berhasil
+    navigate("/");
   }
 
   return (
@@ -40,13 +52,17 @@ function Login() {
         </p>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-600 rounded">
+          <div className="mb-4 p-3 bg-red-100 text-red-600 rounded-lg">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4"
+        >
 
+          {/* Email */}
           <div>
             <label className="block mb-1 font-medium text-gray-700">
               Email
@@ -66,6 +82,7 @@ function Login() {
             />
           </div>
 
+          {/* Password */}
           <div>
             <label className="block mb-1 font-medium text-gray-700">
               Password
@@ -85,6 +102,7 @@ function Login() {
             />
           </div>
 
+          {/* Tombol Login */}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition"
@@ -94,8 +112,10 @@ function Login() {
 
         </form>
 
+        {/* Link Registrasi */}
         <p className="text-center text-gray-600 mt-6">
           Belum punya akun?{" "}
+
           <Link
             to="/register"
             className="text-blue-500 font-semibold hover:underline"

@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Register() {
+  const { register } = useAuth();
+
   const [formData, setFormData] = useState({
     nama: "",
     email: "",
@@ -25,6 +28,7 @@ function Register() {
     setError("");
     setBerhasil(false);
 
+    // Validasi semua field
     if (
       !formData.nama ||
       !formData.email ||
@@ -35,20 +39,34 @@ function Register() {
       return;
     }
 
+    // Validasi email
+    if (!formData.email.includes("@")) {
+      setError("Email tidak valid!");
+      return;
+    }
+
+    // Validasi password
     if (formData.password.length < 6) {
       setError("Password minimal harus 6 karakter!");
       return;
     }
 
-    if (formData.password !== formData.konfirmasiPassword) {
+    // Validasi konfirmasi password
+    if (
+      formData.password !==
+      formData.konfirmasiPassword
+    ) {
       setError("Konfirmasi password tidak cocok!");
       return;
     }
 
-    console.log("Data pendaftaran:", formData);
+    // Simpan akun
+    register(formData);
 
+    // Tampilkan pesan berhasil
     setBerhasil(true);
 
+    // Kosongkan form
     setFormData({
       nama: "",
       email: "",
@@ -69,20 +87,26 @@ function Register() {
           Buat akun MiniShop baru
         </p>
 
+        {/* Pesan Error */}
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-600 rounded">
+          <div className="mb-4 p-3 bg-red-100 text-red-600 rounded-lg">
             {error}
           </div>
         )}
 
+        {/* Pesan Berhasil */}
         {berhasil && (
-          <div className="mb-4 p-3 bg-green-100 text-green-600 rounded">
+          <div className="mb-4 p-3 bg-green-100 text-green-600 rounded-lg">
             Registrasi berhasil! Silakan login.
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4"
+        >
 
+          {/* Nama */}
           <div>
             <label className="block mb-1 font-medium text-gray-700">
               Nama Lengkap
@@ -98,6 +122,7 @@ function Register() {
             />
           </div>
 
+          {/* Email */}
           <div>
             <label className="block mb-1 font-medium text-gray-700">
               Email
@@ -113,6 +138,7 @@ function Register() {
             />
           </div>
 
+          {/* Password */}
           <div>
             <label className="block mb-1 font-medium text-gray-700">
               Password
@@ -128,6 +154,7 @@ function Register() {
             />
           </div>
 
+          {/* Konfirmasi Password */}
           <div>
             <label className="block mb-1 font-medium text-gray-700">
               Konfirmasi Password
@@ -143,6 +170,7 @@ function Register() {
             />
           </div>
 
+          {/* Tombol Registrasi */}
           <button
             type="submit"
             className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition"
@@ -152,8 +180,10 @@ function Register() {
 
         </form>
 
+        {/* Link Login */}
         <p className="text-center text-gray-600 mt-6">
           Sudah punya akun?{" "}
+
           <Link
             to="/login"
             className="text-blue-500 font-semibold hover:underline"

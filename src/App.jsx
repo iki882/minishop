@@ -1,49 +1,73 @@
-// App.jsx
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
-import { KeranjangProvider } from "./context/KeranjangContext";
 
-// Menggunakan lazy loading untuk komponen halaman
+import Layout from "./components/Layout";
+
+import { KeranjangProvider } from "./context/KeranjangContext";
+import { AuthProvider } from "./context/AuthContext";
+
+// Lazy loading halaman
 const Home = lazy(() => import("./pages/Home"));
 const DetailProduk = lazy(() => import("./pages/DetailProduk"));
 const Keranjang = lazy(() => import("./pages/Keranjang"));
-const login = lazy(() => import("./pages/login"));
-const register = lazy(() => import("./pages/registrasi"));
+
+const Login = lazy(() => import("./pages/login"));
+const Register = lazy(() => import("./pages/registrasi"));
 
 function App() {
   return (
-    <KeranjangProvider>
-      <BrowserRouter>
-        <Suspense fallback={<p className="text-center p-5">Memuat...</p>}>
-          <Routes>
+    <AuthProvider>
+      <KeranjangProvider>
+        <BrowserRouter>
+          <Suspense
+            fallback={
+              <p className="text-center p-5">
+                Memuat...
+              </p>
+            }
+          >
+            <Routes>
 
-            {/* Layout menjadi pembungkus semua halaman */}
-            <Route element={<Layout />}>
+              {/* Layout */}
+              <Route element={<Layout />}>
 
-              <Route path="/" element={<Home />} />
+                {/* Beranda */}
+                <Route
+                  path="/"
+                  element={<Home />}
+                />
 
-              <Route
-                path="/produk/:id"
-                element={<DetailProduk />}
-              />
+                {/* Detail produk */}
+                <Route
+                  path="/produk/:id"
+                  element={<DetailProduk />}
+                />
 
-              <Route
-                path="/keranjang"
-                element={<Keranjang />}
-              />
-              <Route path="/login" element={<login />}
-              />
+                {/* Keranjang */}
+                <Route
+                  path="/keranjang"
+                  element={<Keranjang />}
+                />
 
-              <Route path="/register" element={<register />} 
-              />
+                {/* Login */}
+                <Route
+                  path="/login"
+                  element={<Login />}
+                />
 
-            </Route>
+                {/* Registrasi */}
+                <Route
+                  path="/register"
+                  element={<Register />}
+                />
 
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-    </KeranjangProvider>
+              </Route>
+
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+      </KeranjangProvider>
+    </AuthProvider>
   );
 }
 
